@@ -5,7 +5,9 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.ts(x)?',
     '!src/app/**', // should be tested in e2e
-    '!src/lib/registry.tsx'
+    '!src/lib/registry.tsx',
+    '!src/styles/**',
+    '!src/types/**'
   ],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
   modulePaths: ['<rootDir>/src/'],
@@ -28,5 +30,9 @@ module.exports = {
         plugins: ['dynamic-import-node']
       }
     ]
+  },
+  moduleNameMapper: {
+    '^styled-components':
+      'styled-components/dist/styled-components.browser.cjs.js'
   }
 }
