@@ -13,6 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Verify Direct Push
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+        run: echo "This is a direct push to the main branch."
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -33,7 +37,7 @@ jobs:
   revert:
     runs-on: ubuntu-latest
     needs: build
-    if: failure()
+    if: failure() && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
